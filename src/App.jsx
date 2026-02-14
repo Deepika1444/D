@@ -64,6 +64,12 @@ export default function App() {
   }, []);
 
   const startHold = () => {
+    if (audioRef.current && audioRef.current.paused) {
+      audioRef.current.play().catch((err) => {
+        console.log("Autoplay blocked:", err);
+      });
+    }
+
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -76,11 +82,6 @@ export default function App() {
           setCompleted(true);
           triggerConfetti();
           startSoftConfetti();
-          if (audioRef.current) {
-            audioRef.current.play().catch((err) => {
-              console.log("Autoplay blocked:", err);
-            });
-          }
           return 100;
         }
         return prev + 1;
@@ -156,12 +157,6 @@ export default function App() {
     button.style.left = randomX + "px";
     button.style.top = randomY + "px";
     button.style.transform = `rotate(${Math.random() * 360}deg)`;
-  };
-
-  const getBatteryColor = () => {
-    if (progress < 30) return "#ff4d4d";
-    if (progress < 70) return "#ff9a3c";
-    return "#4caf50";
   };
 
   // -----------------------------
@@ -252,19 +247,6 @@ export default function App() {
             ❤️
           </div>
 
-          <div style={styles.battery}>
-            <div
-              style={{
-                ...styles.batteryFill,
-                height: `${progress}%`,
-                background: getBatteryColor(),
-                boxShadow:
-                  progress > 70
-                    ? "0 0 20px rgba(255,0,0,0.6)"
-                    : "none",
-              }}
-            />
-          </div>
         </>
       )}
 
@@ -383,15 +365,6 @@ const styles = {
     marginTop: "20px",
     width: "150px",
     animation: "fadeIn 0.5s ease forwards",
-  },
-  balloonContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
-    pointerEvents: "none",
   },
 
   balloon: {
