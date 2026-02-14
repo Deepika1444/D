@@ -1,28 +1,24 @@
-# 🚀 Steps to Run Locally
+# Valentine Surprise App (Frontend Only)
 
-Follow the steps below to set up and run the project on your local machine.
+This is a Vite + React frontend project.
 
-## 1️⃣ Clone the Repository
-
-```bash
-git clone <your-repo-url>
-cd <your-project-folder>
-```
-
-## 2️⃣ Install Dependencies
+## Run locally
 
 ```bash
 npm install
-```
-
-## 3️⃣ Start the Development Server
-
-```bash
 npm run dev
 ```
 
-## 4️⃣ Open in Browser
+Open: `http://localhost:5173`
 
+## Environment variables
+
+Current app does not call any backend API.
+
+Use `.env` like this:
+
+```env
+VITE_API_URL=
 ```
-http://localhost:5173
-```
+
+Only set `VITE_API_URL` (for example with `:5000`) if you actually have a backend running there.
